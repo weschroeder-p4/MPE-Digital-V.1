@@ -360,14 +360,6 @@ footer .links a:hover{text-decoration:underline}
 .about .person img{position:absolute;bottom:0;left:0;width:100%;height:auto;max-width:none}
 .about .person-glow{left:2%;right:auto;width:94%;height:90%;background:radial-gradient(ellipse 60% 82% at 50% 66%,rgba(51,114,76,.36),rgba(51,114,76,0) 70%)}
 
-/* ===== STICKY MOBILE CTA ===== */
-.mobile-cta{display:none}
-@media(max-width:720px){
-  .mobile-cta{display:flex;align-items:center;justify-content:center;gap:9px;position:fixed;left:12px;right:12px;bottom:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:60;background:var(--green);color:var(--cream);font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.02rem;padding:16px 18px;border-radius:12px;text-decoration:none;box-shadow:0 10px 30px rgba(7,80,44,.45);transition:transform .35s cubic-bezier(.2,.8,.2,1),opacity .35s}
-  .mobile-cta .p{opacity:.85;font-weight:600;font-size:.92rem}
-  .mobile-cta.hide{transform:translateY(160%);opacity:0;pointer-events:none}
-}
-
 /* ===== responsive ===== */
 @media(max-width:900px){
   .hero{padding:56px 0 90px}
@@ -376,7 +368,7 @@ footer .links a:hover{text-decoration:underline}
   .serious .person,.about .person{position:static;width:64%;max-width:280px;margin:0 auto 4px}
   .serious .person,.about .person{top:auto;bottom:auto;right:auto;left:auto;overflow:visible}
   .serious .person img,.about .person img{position:static;height:auto;width:100%}
-  .serious.bleed .bleed-grid,.about.bleed .bleed-grid{min-height:0;padding:48px 0}
+  .serious.bleed .bleed-grid,.about.bleed .bleed-grid{grid-template-columns:1fr;min-height:0;padding:48px 0}
   .about.bleed{background:var(--bg-2)}
   .bleed-text{text-align:center}
   .bleed-text .warns,.bleed-text .metrics{text-align:left}
@@ -396,6 +388,8 @@ footer .links a:hover{text-decoration:underline}
 }
 @media(max-width:560px){
   .wrap{padding:0 18px}
+  .brandmark{font-size:.9rem;white-space:nowrap}
+  .brandmark .dot,.brandmark .reg{display:none}
   .btn{font-size:1rem;padding:16px 22px}
   .serious-card .btn,.faq-cta .btn{width:100%}
   .hero{padding:48px 0 86px}
@@ -427,7 +421,7 @@ footer .links a:hover{text-decoration:underline}
       <div class="hero-text">
         <span class="tag reveal">Novo · agora em aplicativo web</span>
         <h1 class="reveal d1">Transforme a confusão do seu negócio em um <span class="green">plano claro</span> para crescer</h1>
-        <p class="sub reveal d2">Um aplicativo web para planejar os objetivos e metas da sua empresa — e acompanhar tudo do <strong>celular ou do computador</strong>, de onde você estiver. Você paga uma única vez.</p>
+        <p class="sub reveal d2">Um aplicativo para planejar os objetivos e metas da sua empresa — e acompanhar tudo do <strong>celular ou do computador</strong>, de onde você estiver. Você paga uma única vez.</p>
       </div>
       <div class="hero-visual reveal d4">
         <picture>
@@ -745,8 +739,6 @@ footer .links a:hover{text-decoration:underline}
   </div>
 </footer>
 
-<a href="https://payfast.greenn.com.br/gn59mc8/offer/HaTuhL" class="mobile-cta" id="mcta">Quero meu MPE Digital <span class="p">· 8x R$ 9,70</span> →</a>
-
 <script>
 const io=new IntersectionObserver((entries)=>{
   entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
@@ -760,14 +752,6 @@ document.querySelectorAll('.faq-q').forEach(q=>{
     if(!open){item.classList.add('open');ans.style.maxHeight=ans.scrollHeight+'px';}
   });
 });
-
-// sticky mobile CTA: hide when an offer button or the footer is visible
-(function(){
-  var mcta=document.getElementById('mcta'); if(!mcta) return;
-  var watch=document.querySelectorAll('a.btn, footer'); var vis=new Set();
-  var io2=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)vis.add(e.target);else vis.delete(e.target);});mcta.classList.toggle('hide', vis.size>0);},{threshold:0.2});
-  watch.forEach(function(el){io2.observe(el);});
-})();
 
 function tick(){
   const now=new Date();const end=new Date(now);end.setHours(23,59,59,0);
